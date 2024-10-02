@@ -91,6 +91,18 @@ public class Controller {
         int id8 = 8;
         int id9 = 9;
 
+        if (lista_de_produtos.isEmpty()) {
+
+            System.out.println("Não foi possivel buscar este codigo pois não contém nenhum produto relacionado a ele!");
+
+            return lista_de_produtos;
+
+        } else {
+
+            System.out.println("Busca realizada com sucesso!");
+
+        }
+
         return lista_de_produtos.get(id0);
 
     }

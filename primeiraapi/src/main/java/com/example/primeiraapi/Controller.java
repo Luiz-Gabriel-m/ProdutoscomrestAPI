@@ -90,7 +90,7 @@ public class Controller {
         int id6 = 6;
         int id7 = 7;
         int id8 = 8;
-        int id9 =9;
+        int id9 = 9;
 
 
         return lista_de_produtos.get(id0);

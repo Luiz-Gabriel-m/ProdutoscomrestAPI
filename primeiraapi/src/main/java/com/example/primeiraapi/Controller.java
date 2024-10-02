@@ -58,26 +58,24 @@ public class Controller {
 
     @GetMapping("/Removertodososprodutos")
 
-    public ArrayList<Produto> removertodalista() {
-
+    public String removertodalista() {
 
         lista_de_produtos.clear();
 
-        return lista_de_produtos;
+        return "Produtos removidos com sucesso!";
 
     }
 
     @GetMapping("/Readicionarosprodutos")
-    public ArrayList<Produto> readicionarprodutos() {
+    public String readicionarprodutos() {
 
         if (lista_de_produtos.isEmpty()) {
             listarprodutos();
         } else {
             System.out.println("Não foi possivel readicionar pois os itens não foram removidos!");
         }
-        return lista_de_produtos;
+        return "Produtos readicionados com sucesso!";
     }
-
 
     @GetMapping("/Buscarprodutoporcodigo")
     public Object buscacodigo() {
@@ -93,9 +91,8 @@ public class Controller {
         int id8 = 8;
         int id9 = 9;
 
-
         return lista_de_produtos.get(id0);
-
 
     }
 }
+

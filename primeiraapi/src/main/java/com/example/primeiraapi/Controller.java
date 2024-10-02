@@ -3,6 +3,7 @@ package com.example.primeiraapi;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 import java.util.ArrayList;
 
 @RestController // esta linha e para declarar que esta classe e um controller
@@ -94,7 +95,6 @@ public class Controller {
 
 
         return lista_de_produtos.get(id0);
-
 
 
     }

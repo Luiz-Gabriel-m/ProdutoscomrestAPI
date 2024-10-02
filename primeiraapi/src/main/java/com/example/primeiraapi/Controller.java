@@ -70,9 +70,13 @@ public class Controller {
     public String readicionarprodutos() {
 
         if (lista_de_produtos.isEmpty()) {
+
             listarprodutos();
+
         } else {
+
             System.out.println("Não foi possivel readicionar pois os itens não foram removidos!");
+
         }
         return "Produtos readicionados com sucesso!";
     }

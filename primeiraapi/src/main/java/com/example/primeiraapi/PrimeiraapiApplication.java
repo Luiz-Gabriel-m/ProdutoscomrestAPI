@@ -1,6 +1,7 @@
 package com.example.primeiraapi;
 
 
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -8,9 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class PrimeiraapiApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(PrimeiraapiApplication.class, args);
-    }
-
+        SpringApplication.run(PrimeiraapiApplication.class, args);}
 }
 
 

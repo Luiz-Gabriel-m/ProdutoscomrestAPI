@@ -1,8 +1,6 @@
 package com.example.primeiraapi;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 
@@ -11,24 +9,32 @@ import java.util.ArrayList;
 
 public class Controller {
 
-    Produto produto0 = new Produto(0, "Iphone 16 pro max", 11400.00, "Smartphones");
-    Produto produto1 = new Produto(1, "Iphone 15 pro max", 5499.99, "Smartphones");
-    Produto produto2 = new Produto(2, "Iphone 12 pro max", 3799.99, "Smartphones");
-    Produto produto3 = new Produto(3, "Sansung S22 Ultra 5G", 3500.00, "Smartphones");
-    Produto produto4 = new Produto(5, "Sansung S23 FE", 2750.00, "Smartphones");
-    Produto produto5 = new Produto(6, "Capinha para iphone 16 pro max", 49.99, "Acessorios");
-    Produto produto6 = new Produto(6, "Carregador entrada tipo C", 99.99, "Acessorios");
-    Produto produto7 = new Produto(7, "Cabo carregador entrada/saida tipo C 45w", 19.99, "Acessorios");
-    Produto produto8 = new Produto(8, "Batata Elma Chips Doritos 140g", 14.99, "Comidas");
-    Produto produto9 = new Produto(9, "Água", 2.50, "Bebidas");
-
     ArrayList<Produto> lista_de_produtos = new ArrayList<Produto>();
 
-    @GetMapping("/Listarprodutos")
+    public Controller () {
 
+        adicionarprodutos();
+
+    }
+    @GetMapping("/Listarprodutos")
     public ArrayList<Produto> listarprodutos() {
 
-        lista_de_produtos.clear();
+        return lista_de_produtos;
+
+    }
+
+    public void adicionarprodutos() {
+
+        Produto produto0 = new Produto(0, "Iphone 16 pro max", 11400.00, "Smartphones");
+        Produto produto1 = new Produto(1, "Iphone 15 pro max", 5499.99, "Smartphones");
+        Produto produto2 = new Produto(2, "Iphone 12 pro max", 3799.99, "Smartphones");
+        Produto produto3 = new Produto(3, "Sansung S22 Ultra 5G", 3500.00, "Smartphones");
+        Produto produto4 = new Produto(5, "Sansung S23 FE", 2750.00, "Smartphones");
+        Produto produto5 = new Produto(6, "Capinha para iphone 16 pro max", 49.99, "Acessorios");
+        Produto produto6 = new Produto(6, "Carregador entrada tipo C", 99.99, "Acessorios");
+        Produto produto7 = new Produto(7, "Cabo carregador entrada/saida tipo C 45w", 19.99, "Acessorios");
+        Produto produto8 = new Produto(8, "Batata Elma Chips Doritos 140g", 14.99, "Comidas");
+        Produto produto9 = new Produto(9, "Água", 2.50, "Bebidas");
 
         lista_de_produtos.add(produto0);
         lista_de_produtos.add(produto1);
@@ -41,12 +47,8 @@ public class Controller {
         lista_de_produtos.add(produto8);
         lista_de_produtos.add(produto9);
 
-        lista_de_produtos.clone();
-
-        return lista_de_produtos;
-
-
     }
+
 
     @GetMapping("/Quantidadetotaldeprodutos")
 
@@ -71,7 +73,7 @@ public class Controller {
 
         if (lista_de_produtos.isEmpty()) {
 
-            listarprodutos();
+            adicionarprodutos();
 
         } else {
 
@@ -81,34 +83,17 @@ public class Controller {
         return "Produtos readicionados com sucesso!";
     }
 
-    @GetMapping("/Buscarprodutoporcodigo")
-    public Object buscacodigo() {
+    @GetMapping("/Buscarid/{id}")
+    public Produto buscarid (@PathVariable int id) {
 
-        int id0 = 0;
-        int id1 = 1;
-        int id2 = 2;
-        int id3 = 3;
-        int id4 = 4;
-        int id5 = 5;
-        int id6 = 6;
-        int id7 = 7;
-        int id8 = 8;
-        int id9 = 9;
+        for (Produto produto : lista_de_produtos) {
+            if (produto.getId() == id) {
 
-        if (lista_de_produtos.isEmpty()) {
+                return produto;
 
-            System.out.println("Não foi possivel buscar este codigo pois não contém nenhum produto relacionado a ele!");
-
-            return lista_de_produtos;
-
-        } else {
-
-            System.out.println("Busca realizada com sucesso!");
-
+            }
         }
-
-        return lista_de_produtos.get(id0);
-
+        return null;
     }
 }
 

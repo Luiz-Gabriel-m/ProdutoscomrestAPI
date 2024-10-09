@@ -2,7 +2,7 @@ package com.example.primeiraapi;
 
 public class Produto {
 
-    private int id;
+    private int Id;
 
     private String nome;
 
@@ -11,9 +11,9 @@ public class Produto {
     private String categoria;
 
 
-    public Produto(int ID, String Nome, double Preco, String Categoria) {
+    public Produto (int ID, String Nome, double Preco, String Categoria) {
 
-        this.id = ID;
+        this.Id = ID;
         this.nome = Nome;
         this.preco = Preco;
         this.categoria = Categoria;
@@ -21,7 +21,7 @@ public class Produto {
     }
 
     public int getId() {
-        return id;
+        return Id;
     }
 
     public String getNome() {

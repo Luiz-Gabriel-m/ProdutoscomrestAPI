@@ -110,49 +110,45 @@ public class ProdutosController {
 
     }
 
-    @GetMapping("/Buscar")
-    public Produto buscar(@RequestParam int id, @RequestParam int id2) {
+    @GetMapping("/Buscar")//aqui criei um endpoint que chama o metodo buscar
+    public Produto buscar(@RequestParam int id, @RequestParam int id2) {//aqui crei meu metodo do tipo Produto com o nome buscar id onde ele tem uma ou mais requestvaram que e um parametro do endpoint do tipo int que ira receber um valor
 
-        for (Produto produto : lista_de_produtos) {
-            if (produto.getId() == id || produto.getId() == id2) {
+        for (Produto produto : lista_de_produtos) {//aqui crei um for que ira percorrer minha lista ate achar um produto que tenha o id que foi informado no parmetro do enpoint e armazenar numa varivel temporaria
+            if (produto.getId() == id || produto.getId() == id2) {//aqui meu if faz uma comparacao entre a minha variavel temporaria e a variavel com o id selecionado entre um ou outro atraves do ||
 
-                return produto;
+                return produto;//aqui retorno o produto buscado
 
             }
         }
-        return null;
+        return null;//aqui retorno nulo
     }
 
-    @PostMapping("/Cadastrar")
-    public String cadastrar(@RequestBody Produto produto) {
+    @PostMapping("/Cadastrar")//aqui criei um endpoint que chama meu metodo cadastrar
+    public String cadastrar(@RequestBody Produto produto) {//aqui creiei um metodo que usa do parametro requestbody que faz com que ele tenha que retornar um corpo no formato json
 
-        lista_de_produtos.add(produto);
+        lista_de_produtos.add(produto);//aqui adiciono meu produto que foi cadastrado em minha arraylist
 
-        return "Você cadastrou um novo produto com sucesso!";
+        return "Você cadastrou um novo produto com sucesso!";//aqui retorno uma menssagem
 
     }
 
-    @PutMapping("/Atualizar/{id}")
-    public String atualizaritem(@PathVariable int id, @RequestBody Produto produto) {
+    @PutMapping("/Atualizar/{id}")//aqui criei um endpoint que chama meu metodo atualizaritem com o parametro de id
+    public String atualizar (@PathVariable int id, @RequestBody Produto produto) {//aqui criei o metodo atualizar que recebe um parametro do tipo int atraves do pathvariable e atualiza um produto atraves do requestbody
         for (Produto produtoid : lista_de_produtos) {//aqui crei um for que ira percorrer minha lista ate achar um produto que tenha o id que foi informado no parmetro do enpoint e armazenar numa varivel temporaria
-            if (produtoid.getId() == id) {
+            if (produtoid.getId() == id) {//aqui criei um if que pega o conteudo da variavel temporaria e compara com o valor irformado e se ele for igual ao informafo ele fara oque esta dentro do if no caso atualizar o produto
 
-                lista_de_produtos.set(id, produto);
+                lista_de_produtos.set(id, produto);//aqui eu seto as informacoes que desejo no produto que tem o id selecionado
 
-                return "Você atualizou o produto com sucesso!";
-
-            } else {
-
-                return "Não foi possivel atulizar o item";
+                return "Você atualizou o produto com sucesso!";//aqui retorno uma messagem
 
             }
         }
 
-        return null;
+        return null;//aqui retorno nulo
 
     }
 
-    @PutMapping("/Atualizar")//aqui criei um endpoint que chama o metodo mensagem
+    @PutMapping("/Atualizar")//aqui criei um endpoint que chama o metodo mensagem2
     public String menssagem2() {//aqui crei o metodo menssagem que retorna uma string
 
         return "Você não informou o '/id' que deseja atualizar!";//aqui retorno uma menssagem

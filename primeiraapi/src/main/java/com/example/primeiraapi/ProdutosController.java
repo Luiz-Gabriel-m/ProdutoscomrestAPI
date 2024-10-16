@@ -1,5 +1,8 @@
 package com.example.primeiraapi;
 
+import ch.qos.logback.classic.util.LogbackMDCAdapter;
+import org.apache.catalina.Store;
+import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -7,20 +10,21 @@ import java.util.ArrayList;
 @RestController // esta linha e para declarar que esta classe e um controller
 @RequestMapping("/Loja")// e esta e para definir a uri/endpoint de assesso deste controller
 
-public class Controller {
+public class ProdutosController {
 
     ArrayList<Produto> lista_de_produtos = new ArrayList<Produto>();//Aqui criei meu arraylist e atribui um nome a ele
+    private LogbackMDCAdapter itemDatabase;
 
-    public Controller() {//aqui criei meu construtor que adiciona meus produtos no meu arraylist atraves de outro metodo
+    public ProdutosController() {//aqui criei meu construtor que adiciona meus produtos no meu arraylist atraves de outro metodo
 
         adicionarprodutos();//aqui chamo o metodo que adiciona meus produtos na minha lista
 
     }
 
-    @GetMapping("/Listarprodutos")//aqui criei um endpoint que chama o metodo listar produtos
+    @GetMapping("/Listar")//aqui criei um endpoint que chama o metodo listar produtos
     public ArrayList<Produto> listarprodutos() {//aqui criei o metodo que lista meus produtos
 
-        return lista_de_produtos;//aqui eu retorno minha lista de clientes apenas exibindo não adiciona ou remove nada
+        return lista_de_produtos;//aqui eu retorno minha lista de produtos apenas exibindo não adiciona ou remove nada
 
     }
 
@@ -51,7 +55,7 @@ public class Controller {
     }
 
 
-    @GetMapping("/Quantidadetotaldeprodutos")//aqui criei um endpoint que chama o metodo que conta quantos produtos minha lista contem
+    @GetMapping("/Quantidade")//aqui criei um endpoint que chama o metodo que conta quantos produtos minha lista contem
 
     public int quantidade() {//aqui criei o metodo que conta quantos produtos minha lista contem
 
@@ -59,7 +63,7 @@ public class Controller {
 
     }
 
-    @GetMapping("/Removertodososprodutos")//aqui criei um endpoint que chama o metodo que ira remover todos os produtos da minha lista
+    @GetMapping("/Remover")//aqui criei um endpoint que chama o metodo que ira remover todos os produtos da minha lista
 
     public String removertodalista() {//aqui criei o metodo que ira remover todos os produtos da minha lista porem ira retornar uma mensagem do tipo string informando o que aconteceu
 
@@ -70,7 +74,7 @@ public class Controller {
 
     }
 
-    @GetMapping("/Readicionarosprodutos")//aqui criei um endpoint que chama o metodo readicionar produtos
+    @GetMapping("/Readicionar")//aqui criei um endpoint que chama o metodo readicionar produtos
     public String readicionarprodutos() {//aqui criei o metodo que ira readicionar todos os produtos da minha lista porem ira retornar uma mensagem do tipo string informando o que aconteceu
 
         if (lista_de_produtos.isEmpty()) {//aqui criei um if para comparar se me lista esta vazia ou n pois ele so ira readicionar os produtos cas a lista esteja vazia caso contrario ele redireciona direto ao else
@@ -85,7 +89,8 @@ public class Controller {
         return "Produtos readicionados com sucesso!";//aqui retorno uma menssagem do que foi realizado
     }
 
-    @GetMapping("/Buscarid/{id}")//aqui criei um endpoint com um parametro que ira chamar meu metodo que busca o produto que corresponde ao id desejado
+    @GetMapping("/Buscarid/{id}")
+//aqui criei um endpoint com um parametro que ira chamar meu metodo que busca o produto que corresponde ao id desejado
     public Produto buscarid(@PathVariable int id) {//aqui crei meu metodo do tipo Produto com o nome buscar id onde ele tem uma pathvariable que e um parametro do endpoint do tipo int que ira receber um valor
 
         for (Produto produto : lista_de_produtos) {//aqui crei um for que ira percorrer minha lista ate achar um produto que tenha o id que foi informado no parmetro do enpoint e armazenar numa varivel temporaria
@@ -101,7 +106,56 @@ public class Controller {
     @GetMapping("/Buscarid")//aqui criei um endpoint que chama o metodo mensagem
     public String mensagem() {//aqui crei o metodo menssagem que retorna uma string
 
-        return "Você não informou o /'id' que deseja buscar!";//aqui retorno uma menssagem
+        return "Você não informou o '/id' que deseja buscar!";//aqui retorno uma menssagem
+
+    }
+
+    @GetMapping("/Buscar")
+    public Produto buscar(@RequestParam int id, @RequestParam int id2) {
+
+        for (Produto produto : lista_de_produtos) {
+            if (produto.getId() == id || produto.getId() == id2) {
+
+                return produto;
+
+            }
+        }
+        return null;
+    }
+
+    @PostMapping("/Cadastrar")
+    public String cadastrar(@RequestBody Produto produto) {
+
+        lista_de_produtos.add(produto);
+
+        return "Você cadastrou um novo produto com sucesso!";
+
+    }
+
+    @PutMapping("/Atualizar/{id}")
+    public String atualizaritem(@PathVariable int id, @RequestBody Produto produto) {
+        for (Produto produtoid : lista_de_produtos) {//aqui crei um for que ira percorrer minha lista ate achar um produto que tenha o id que foi informado no parmetro do enpoint e armazenar numa varivel temporaria
+            if (produtoid.getId() == id) {
+
+                lista_de_produtos.set(id, produto);
+
+                return "Você atualizou o produto com sucesso!";
+
+            } else {
+
+                return "Não foi possivel atulizar o item";
+
+            }
+        }
+
+        return null;
+
+    }
+
+    @PutMapping("/Atualizar")//aqui criei um endpoint que chama o metodo mensagem
+    public String menssagem2() {//aqui crei o metodo menssagem que retorna uma string
+
+        return "Você não informou o '/id' que deseja atualizar!";//aqui retorno uma menssagem
 
     }
 }
